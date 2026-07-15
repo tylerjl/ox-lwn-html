@@ -1,0 +1,13 @@
+* LWN HTML Org Exporter
+
+Provides an org-mode exporter for HTML that conforms to the guidelines for LWN contributors.
+
+** Installing
+
+Not yet published; so use ~:vc~ in emacs >= 30:
+
+#+begin_src elisp
+(use-package ox-lwn-html
+  :vc (:url "https://github.com/tylerjl/ox-lwn-html")
+  :after org)
+#+end_src
