@@ -1,0 +1,24 @@
+name: Test Suite
+
+on:
+  workflow_dispatch:
+
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - 'README.org'
+      - LICENSE
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'README.org'
+      - LICENSE
+
+jobs:
+  test:
+    name: Run ert tests in a devshell with emacs
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: DeterminateSystems/nix-installer-action@main
+    - run: nix develop . --command just test
