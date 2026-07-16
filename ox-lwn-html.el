@@ -83,15 +83,16 @@ indent with spacing per guidelines."
 
 For anything not single-file links, pass along to upstream org-html-link.
 
-Otherwise, collapse potential alt text from CAPTION, HTML alt, or buffer
+Otherwise, collapse potential alt text from HTML alt, CAPTION, or buffer
 filename."
   (if (org-export-inline-image-p
        link (plist-get info :html-inline-image-rules))
       (let* ((path (org-element-property :path link))
-	     (attrs (org-export-read-attribute :attr_html link))
 	     ;; CAPTION is affiliated with the containing paragraph,
 	     ;; rather than the link object itself.
 	     (paragraph (org-element-lineage link '(paragraph) t))
+	     (attrs (and paragraph
+			 (org-export-read-attribute :attr_html paragraph)))
 	     (caption (and paragraph
 			   (org-export-get-caption paragraph)))
 	     (caption-text
