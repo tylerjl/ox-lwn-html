@@ -11,3 +11,18 @@ Not yet published; so use ~:vc~ in emacs >= 30:
   :vc (:url "https://github.com/tylerjl/ox-lwn-html")
   :after org)
 #+end_src
+
+** Usage
+
+Call ~org-export-dispatch~ in an ~org-mode~ buffer with ~C-e~ and use the default prefix for this exporter (~L~).
+
+** Writing compatible org
+
+In general, this package relies on standard org forms for capturing formatting and metadata upon export, but there are some patterns to follow in order to ensure the export ends up looking maximally correct.
+
+The most salient piece of advice is that when it comes time for a final export of a submission HTML file, you should 1) toggle body-only export with ~C-b~ and 2) optionally export the subtree only with ~C-s~ if you're working on a single subtree in a larger org document.
+For a more complete HTML preview during the writing process, you probably don't want body-only export (~C-b~) for more complete HTML.
+Also:
+
++ Use ~#+CAPTION: text~ or ~#+ATTR_HTML: :alt text~ to enrich images with alt text for accessibility.
++ Keep ~[[file:<path>]]~ links as standalone lines to let the exporter strip extraneous ~<div>~ and ~<p>~ tags.
