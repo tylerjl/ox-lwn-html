@@ -27,6 +27,19 @@ Also:
 + Use ~#+CAPTION: text~ or ~#+ATTR_HTML: :alt text~ to enrich images with alt text for accessibility.
 + When direct-quoting, wrap with double quotes /twice/ to automically use ~<q>~ tags. For example:
   #+begin_example
-  ""Vi vi vi, the sign of the beast"", intoned the priest. "That's what the texts say, anyway."
+  ""Vi vi vi, the sign of the beast"", intoned the priest.
+  "That's what the texts say, anyway."
   #+end_example
 + Keep ~[[file:<path>]]~ links as standalone lines to let the exporter strip extraneous ~<div>~ and ~<p>~ tags.
+
+** Development
+
+Write tests in ~tests/~ using [[https://www.gnu.org/software/emacs/manual/html_node/ert/index.html][ert]].
+Add to an existing test file, or if deserving of a standalone battery of tests, create it and then add to ~all.el~.
+
+Run tests with ~just~.
+
+Both ~emacs~ and ~just~ are bundled in the Nix devshell.
+With Nix installed, either drop ~use flake~ into ~.envrc~ to use it automatically or invoke standalone with:
+
+: nix develop . --command just
