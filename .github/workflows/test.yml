@@ -21,4 +21,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: DeterminateSystems/nix-installer-action@main
-    - run: nix develop . --command just test
+    - run: nix develop . --command just test > $GITHUB_STEP_SUMMARY
