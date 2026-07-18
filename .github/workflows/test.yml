@@ -14,6 +14,9 @@ on:
       - 'README.org'
       - LICENSE
 
+env:
+  EMACS_TEST_JUNIT_REPORT: 1
+
 jobs:
   test:
     name: Run ert tests in a devshell with emacs
@@ -21,4 +24,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: DeterminateSystems/nix-installer-action@main
-    - run: nix develop . --command just test > $GITHUB_STEP_SUMMARY
+    - run: nix develop . --command just test
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v6
+      if: success() || failure()
+      with:
+        report_paths: 'tests/*.xml'
