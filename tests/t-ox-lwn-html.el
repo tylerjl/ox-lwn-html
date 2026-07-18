@@ -58,4 +58,9 @@
 	(html (org->html "** Headline" '(:with-toc nil))))
     (should (equal html expected))))
 
+(ert-deftest org-lwn-html-export-paragraph-q ()
+  (let ((expected (into-xml '(p "\nA \"" (q "direct") "\" quote.")))
+	(html (org->html "A \"\"direct\"\" quote.")))
+    (should (equal html expected))))
+
 (provide 't-ox-lwn-html)

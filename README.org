@@ -25,4 +25,8 @@ For a more complete HTML preview during the writing process, you probably don't 
 Also:
 
 + Use ~#+CAPTION: text~ or ~#+ATTR_HTML: :alt text~ to enrich images with alt text for accessibility.
++ When direct-quoting, wrap with double quotes /twice/ to automically use ~<q>~ tags. For example:
+  #+begin_example
+  ""Vi vi vi, the sign of the beast"", intoned the priest. "That's what the texts say, anyway."
+  #+end_example
 + Keep ~[[file:<path>]]~ links as standalone lines to let the exporter strip extraneous ~<div>~ and ~<p>~ tags.

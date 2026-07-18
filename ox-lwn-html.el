@@ -111,11 +111,18 @@ filename."
 
 ;;;; Paragraph
 
+(defun org-lwn-html--unwrap-q (text)
+  (replace-regexp-in-string
+   (rx ?\" ?\" (group (+ (not (any ?\" ?\n)))) ?\" ?\")
+   (rx ?\" "<q>" (backref 1) "</q>" ?\")
+   text))
+
 (defun org-lwn-html-paragraph (paragraph contents info)
   "Export standalone images without paragraph or figure wrappers."
-  (if (org-html-standalone-image-p paragraph info)
-      contents
-    (org-html-paragraph paragraph contents info)))
+  (let ((wrapped-q (org-lwn-html--unwrap-q contents)))
+    (if (org-html-standalone-image-p paragraph info)
+	wrapped-q
+      (org-html-paragraph paragraph wrapped-q info))))
 
 ;;;; Section
 
