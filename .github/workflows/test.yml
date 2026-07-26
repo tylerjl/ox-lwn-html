@@ -30,3 +30,8 @@ jobs:
       if: success() || failure()
       with:
         report_paths: 'tests/*.xml'
+    - name: Check SimpleCov coverage
+      uses: alexremn/simplecov-github-action@v1
+      with:
+        coverage_path: '.resultset.json'
+        post_comment: false

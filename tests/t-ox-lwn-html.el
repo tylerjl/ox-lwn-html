@@ -2,6 +2,12 @@
 
 ;; **** Helpers
 
+(when (require 'undercover nil t)
+  (undercover "*.el"
+	      (:send-report nil)
+	      (:report-file ".resultset.json")
+	      (:report-format 'simplecov)))
+
 (require 'ox-lwn-html)
 
 (defun org->html (org-markup &optional ext-plist)

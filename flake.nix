@@ -22,7 +22,9 @@
       perSystem = { pkgs, ... }: {
         devshells.default = {
           packages = with pkgs; [
-            emacs
+            ((emacsPackagesFor emacs).emacsWithPackages (epkgs: with epkgs; [
+              undercover
+            ]))
             just
           ];
         };

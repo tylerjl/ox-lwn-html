@@ -7,6 +7,7 @@ set script-interpreter := [
 ]
 
 [script]
+[env("UNDERCOVER_FORCE", "true")]
 test:
 	(message "emacs %s" emacs-version)
 	(ert-run-tests-batch-and-exit)
