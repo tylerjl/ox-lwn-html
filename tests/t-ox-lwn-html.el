@@ -6,9 +6,11 @@
   (undercover "*.el"
 	      (:send-report nil)
 	      (:report-file "lcov.info")
+	      (:merge-report nil)
 	      (:report-format 'lcov)))
 
 (require 'ox-lwn-html)
+(require 'coverage)
 
 (defun org->html (org-markup &optional ext-plist)
   "Helper to convert org markup into parsed HTML structure."
@@ -74,5 +76,16 @@
   (let ((expected (into-xml '(p "\nA \"" (q "direct") "\" quote.")))
 	(html (org->html "A \"\"direct\"\" quote.")))
     (should (equal html expected))))
+
+(ert-deftest org-lwn-html-export-to-html-test ()
+  (let* ((temp-file (make-temp-file "ox-lwn-html-test" nil ".html"))
+	 (exported-file (with-temp-buffer
+			  (org-mode)
+			  (insert (format "#+EXPORT_FILE_NAME: %s\nExample." temp-file))
+			  (org-lwn-html-export-to-html nil nil nil t)))
+	 (html (with-temp-buffer
+		 (insert-file-contents exported-file)
+		 (libxml-parse-html-region))))
+    (should (equal html (into-xml '(p "\nExample."))))))
 
 (provide 't-ox-lwn-html)

@@ -30,6 +30,3 @@ jobs:
       if: success() || failure()
       with:
         report_paths: 'tests/*.xml'
-    - uses: livewing/lcov-job-summary@v1.3.0
-      with:
-        lcov: lcov.info
