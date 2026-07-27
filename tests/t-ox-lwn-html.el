@@ -5,8 +5,8 @@
 (when (require 'undercover nil t)
   (undercover "*.el"
 	      (:send-report nil)
-	      (:report-file ".resultset.json")
-	      (:report-format 'simplecov)))
+	      (:report-file "lcov.info")
+	      (:report-format 'lcov)))
 
 (require 'ox-lwn-html)
 
@@ -42,6 +42,12 @@
 (ert-deftest org-lwn-html-export-image ()
   (let ((expected '(html nil (body nil (img ((src . "foo.png") (alt . "foo.png"))))))
 	(html (org->html "[[file:foo.png]]")))
+    (should (equal html expected))))
+
+(ert-deftest org-lwn-html-export-link-fallback ()
+  (let* ((href "https://www.example.com")
+	 (expected `(html nil (body nil (p nil "\n" (a ((href . ,href)) ,href)))))
+	 (html (org->html (format "[[%s]]" href))))
     (should (equal html expected))))
 
 (ert-deftest org-lwn-html-export-image-caption ()
