@@ -34,7 +34,7 @@ Also:
 
 ** Development
 
-Write tests in ~tests/~ using [[https://www.gnu.org/software/emacs/manual/html_node/ert/index.html][ert]].
+Write tests in ~tests/~ using [[https://github.com/jorgenschaefer/emacs-buttercup][buttercup]].
 Add to an existing test file, or if deserving of a standalone battery of tests, create it and then add to ~all.el~.
 
 Run tests with ~just~.

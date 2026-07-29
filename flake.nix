@@ -23,6 +23,7 @@
         devshells.default = {
           packages = with pkgs; [
             ((emacsPackagesFor emacs).emacsWithPackages (epkgs: with epkgs; [
+              buttercup-junit
               undercover
             ]))
             just
