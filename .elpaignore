@@ -1,0 +1,5 @@
+.github
+Justfile
+flake.nix
+flake.lock
+/tests
