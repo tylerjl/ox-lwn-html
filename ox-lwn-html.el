@@ -143,7 +143,7 @@ filename."
 
 ;;;; Section
 
-(defun org-lwn-html-section (section contents info)
+(defun org-lwn-html-section (_section contents _info)
   "Simple section formatting without wrapping div tags."
   contents)
 
