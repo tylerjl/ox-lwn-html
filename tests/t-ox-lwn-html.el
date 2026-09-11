@@ -33,21 +33,31 @@
 		     (libxml-parse-xml-region)))
 	(exported (org->html (funcall org-text) '(:with-toc nil))))
     (cl-destructuring-bind (buf html) exported
-      (setq temp-buf buf)
+      ;; Cleanup
+      (when (buffer-live-p buf)
+	(when-let ((win (get-buffer-window buf)))
+	  (delete-window win))
+	(kill-buffer buf))
+      ;; Report
       (if (equal html formatted) t
 	(cons nil (format "got %s, expected %s" html formatted))))))
+
+(defun run-tests ()
+  "Minor helper when running in emacs"
+  (interactive)
+  (let ((buttercup-suites nil))
+    (buttercup-run t))
+  (when-let ((buf (get-buffer "*Buttercup*")))
+    (let ((win (get-buffer-window buf)))
+      (when (not win)
+	(setq win (split-window nil nil t))
+	(set-window-buffer win buf)
+	(set-window-dedicated-p win t)
+	(select-window win)))))
 
 ;; **** Tests
 
 (describe "ox-lwn-html"
-
-  :var (temp-buf)
-  (after-each
-    (when (buffer-live-p temp-buf)
-      (when-let ((win (get-buffer-window temp-buf)))
-	(delete-window win))
-      (kill-buffer temp-buf)))
-
   (describe "export-as"
     (describe "code"
       (describe "inline"
