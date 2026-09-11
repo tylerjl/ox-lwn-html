@@ -31,7 +31,7 @@
 				     (funcall html-text)
 				     "</body></html>"))
 		     (libxml-parse-xml-region)))
-	(exported (org->html (funcall org-text) '(:with-toc nil))))
+	(exported (org->html (funcall org-text) nil)))
     (cl-destructuring-bind (buf html) exported
       ;; Cleanup
       (when (buffer-live-p buf)
