@@ -42,7 +42,7 @@ Also:
 ** Background
 
 The [[https://lwn.net/op/AuthorGuide.lwn][LWN contributing author program]] is great!
-Their general guidance on that page is useful, and the style guide that they provide to authors is helpfully specific[fn:1].
+Their general guidance on that page is useful, and the style guide that they provide to authors is helpfully specific (I hope I'm not breaking any FrieNDAs by publishing the HTML formatting guidelines as an emacs package).
 If you're well-versed in a technical topic and interested in sharing what you know, I'd encourage you to try it.
 
 Because the style guide formatting rules are consistent enough, we can alleviate the need to /manually/ format writing to conform to those rules by writing an ~org-mode~ [[https://orgmode.org/manual/Exporting.html][exporter]].
@@ -73,7 +73,3 @@ Both ~emacs~ and ~just~ are bundled in the Nix devshell.
 With Nix installed, either drop ~use flake~ into ~.envrc~ to use it automatically or invoke standalone with:
 
 : nix develop . --command just
-
-** Footnotes
-
-[fn:1] I hope I'm not breaking any FrieNDAs by publishing the HTML formatting guidelines as an emacs package.
