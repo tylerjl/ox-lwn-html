@@ -28,6 +28,7 @@
 ;;; Code:
 
 (require 'ox)
+(require 'ox-html)
 
 ;;; User-Configurable Variables
 
