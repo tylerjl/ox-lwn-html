@@ -53,9 +53,15 @@
       (describe "inline"
 	(it "formats as tt"
 	  (expect "A ~sample~ paragraph." :parses-into "<p>A <tt>sample</tt> paragraph.</p>")))
+      (describe "inline src"
+	(it "formats as tt"
+	  (expect "Some src_emacs-lisp[:exports code]{nil} code" :parses-into "<p>Some <tt>nil</tt> code</p>")))
       (describe "block"
-	(it "indents <pre> tags"
-	  (expect "#+begin_src elisp\nt\n#+end_src" :parses-into "<pre>    t</pre>"))))
+	(it "indents code <pre> tags"
+	  (expect "#+begin_src elisp\nt\n#+end_src" :parses-into "<pre>    t</pre>")))
+      (describe "literal"
+	(it "indents literal <pre> tags"
+	  (expect ": literal" :parses-into "<pre>    literal</pre>"))))
     (describe "link"
       (describe "fallback"
 	:var ((link "https://www.example.com"))

@@ -55,6 +55,8 @@
               (org-open-file (org-lwn-html-export-to-html a s v b))))))
   :translate-alist '((code . org-lwn-html-code)
                      (src-block . org-lwn-html-src-block)
+                     (inline-src-block . org-lwn-html-code)
+                     (fixed-width . org-lwn-html-src-block)
                      (link . org-lwn-html-link)
                      (headline . org-lwn-html-headline)
                      (paragraph . org-lwn-html-paragraph)
