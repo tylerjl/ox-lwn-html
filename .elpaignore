@@ -2,4 +2,5 @@
 Justfile
 flake.nix
 flake.lock
+screenshot.png
 /tests
