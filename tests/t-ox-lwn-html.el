@@ -27,10 +27,10 @@
 
 (buttercup-define-matcher :parses-into (org-text html-text)
   (let ((formatted (with-temp-buffer
-		     (insert (concat "<html><body>"
-				     (funcall html-text)
-				     "</body></html>"))
-		     (libxml-parse-xml-region)))
+                     (insert (concat "<html><body>"
+                                     (funcall html-text)
+                                     "</body></html>"))
+                     (libxml-parse-xml-region)))
 	(exported (org->html (funcall org-text) nil)))
     (cl-destructuring-bind (buf html) exported
       ;; Cleanup
@@ -103,15 +103,15 @@
       (let* ((temp-file (make-temp-file "ox-lwn-html-test" nil ".html"))
 	     (example "Example.")
 	     (exported-file (with-temp-buffer
-			      (org-mode)
-			      (insert (format "#+EXPORT_FILE_NAME: %s\n%s" temp-file example))
-			      (org-lwn-html-export-to-html nil nil nil t)))
+                              (org-mode)
+                              (insert (format "#+EXPORT_FILE_NAME: %s\n%s" temp-file example))
+                              (org-lwn-html-export-to-html nil nil nil t)))
 	     (html (with-temp-buffer
 		     (insert-file-contents exported-file)
 		     (libxml-parse-html-region)))
 	     (formatted (with-temp-buffer
-			  (insert (format "<p>\n%s</p>" example))
-			  (libxml-parse-html-region))))
+                          (insert (format "<p>\n%s</p>" example))
+                          (libxml-parse-html-region))))
 	(expect html :to-equal formatted)))))
 
 (provide 't-ox-lwn-html)

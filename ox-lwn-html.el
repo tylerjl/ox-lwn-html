@@ -80,8 +80,8 @@
   "Strip away enclosing tags from source blocks, wrap in pre tags, and
 indent with spacing per guidelines."
   (let* ((code (string-trim-right
-		(org-html-encode-plain-text
-		 (org-element-property :value src-block))))
+                (org-html-encode-plain-text
+                 (org-element-property :value src-block))))
 	 (indented (replace-regexp-in-string "^" "    " code)))
     (format "<pre>\n%s\n</pre>" indented)))
 
@@ -101,9 +101,9 @@ filename."
 	     ;; rather than the link object itself.
 	     (paragraph (org-element-lineage link '(paragraph) t))
 	     (attrs (and paragraph
-			 (org-export-read-attribute :attr_html paragraph)))
+                         (org-export-read-attribute :attr_html paragraph)))
 	     (caption (and paragraph
-			   (org-export-get-caption paragraph)))
+                           (org-export-get-caption paragraph)))
 	     (caption-text
 	      (and caption
 		   (string-trim
