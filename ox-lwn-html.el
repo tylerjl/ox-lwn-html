@@ -60,6 +60,7 @@
                      (link . org-lwn-html-link)
                      (headline . org-lwn-html-headline)
                      (paragraph . org-lwn-html-paragraph)
+                     (quote-block . org-lwn-html-quote-block)
                      (section . org-lwn-html-section)))
 
 ;;; Transcode Functions
@@ -129,7 +130,15 @@ filename."
   (let ((wrapped-q (org-lwn-html--unwrap-q contents)))
     (if (org-html-standalone-image-p paragraph info)
 	wrapped-q
-      (org-html-paragraph paragraph wrapped-q info))))
+      (if (eq (org-element-type (org-export-get-parent paragraph)) 'quote-block)
+	  contents
+	(org-html-paragraph paragraph wrapped-q info)))))
+
+;;;; Quotes
+
+(defun org-lwn-html-quote-block (_quote-block contents _info)
+  "Export QUOTE-BLOCK as a bare blockquote with class bq."
+  (format "<blockquote class=\"bq\">\n%s</blockquote>" contents))
 
 ;;;; Section
 

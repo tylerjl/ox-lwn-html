@@ -82,8 +82,12 @@
 	(expect "** Headline" :parses-into "<h4>Headline</h4>")
 	(expect "***** Headline" :parses-into "<h4>Headline</h4>")))
     (describe "quotes"
-      (it "converts double quotes into <q> tags"
-	(expect "A \"\"direct\"\" quote." :parses-into "<p>A \"<q>direct</q>\" quote.</p>"))))
+      (describe "inline"
+	(it "converts double quotes into <q> tags"
+	  (expect "A \"\"direct\"\" quote." :parses-into "<p>A \"<q>direct</q>\" quote.</p>")))
+      (describe "block"
+	(it "amends the css class without <p> tags"
+	  (expect "#+begin_quote\nQuote\n#+end_quote" :parses-into "<blockquote class=\"bq\">Quote</blockquote>")))))
   (describe "export-to"
     (it "writes formatted files"
       (let* ((temp-file (make-temp-file "ox-lwn-html-test" nil ".html"))
