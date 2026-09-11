@@ -35,8 +35,13 @@
   "Options specific to LWN HTML export back-end."
   :tag "Org LWN HTML"
   :group 'org-export
+  :prefix "org-lwn-html-"
   :version "30.2"
   :package-version '(Org . "9.8.7"))
+
+(defcustom org-lwn-html-hlevel 4
+  "Default heading level that headlines will scale to upon export"
+  :type 'integer)
 
 ;;; Define Back-End
 
@@ -170,9 +175,11 @@ Export is done in a buffer named \"*Org LWN HTML Export*\", which will
 be displayed when `org-export-show-temporary-export-buffer' is
 non-nil."
   (interactive)
-  (org-export-to-buffer 'lwn-html "*Org LWN HTML Export*"
-    async subtreep visible-only body-only ext-plist
-    (lambda () (html-mode))))
+  (let ((org-html-htmlize-output-type nil)
+	(org-html-toplevel-hlevel org-lwn-html-hlevel))
+    (org-export-to-buffer 'lwn-html "*Org LWN HTML Export*"
+      async subtreep visible-only body-only ext-plist
+      (lambda () (html-mode)))))
 
 ;;;###autoload
 (defun org-lwn-html-export-to-html (&optional async subtreep visible-only body-only ext-plist)
@@ -196,7 +203,9 @@ contents of hidden elements.
 
 Return output file's name."
   (interactive)
-  (let ((outfile (org-export-output-file-name ".html" subtreep)))
+  (let ((outfile (org-export-output-file-name ".html" subtreep))
+	(org-html-htmlize-output-type nil)
+	(org-html-toplevel-hlevel org-lwn-html-hlevel))
     (org-export-to-file 'lwn-html outfile
       async subtreep visible-only body-only ext-plist)))
 

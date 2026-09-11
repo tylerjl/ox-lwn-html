@@ -71,8 +71,10 @@
 	(it "prefers :alt over CAPTION"
 	  (expect "#+CAPTION: quux\n#+ATTR_HTML: :alt baz\n[[file:foo.png]]" :parses-into "<img src=\"foo.png\" alt=\"baz\" />"))))
     (describe "headlines"
-      (it "renders second-level headings"
-	(expect "** Headline" :parses-into "<h2>Headline</h2>")))
+      (it "renders headings at the right level"
+	(expect "* Headline" :parses-into "<h4>Headline</h4>")
+	(expect "** Headline" :parses-into "<h4>Headline</h4>")
+	(expect "***** Headline" :parses-into "<h4>Headline</h4>")))
     (describe "quotes"
       (it "converts double quotes into <q> tags"
 	(expect "A \"\"direct\"\" quote." :parses-into "<p>A \"<q>direct</q>\" quote.</p>"))))
