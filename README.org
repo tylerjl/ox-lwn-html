@@ -2,10 +2,9 @@
 
 Provides an org-mode exporter for HTML that conforms to the guidelines for [[https://lwn.net/op/AuthorGuide.lwn][LWN contributors]].
 
-#+ATTR_HTML: :width 75%
 [[file:screenshot.png]]
 
-For an extended explanation behind the rationale for this package and some history, read [[*Background]].
+For an extended explanation behind the rationale for this package and some history, read [[#background][the background]].
 Otherwise, continue reading to learn how to get started with this package.
 
 ** Installing
@@ -42,13 +41,31 @@ Also:
 
 ** Background
 
+The [[https://lwn.net/op/AuthorGuide.lwn][LWN contributing author program]] is great!
+Their general guidance on that page is useful, and the style guide that they provide to authors is helpfully specific[fn:1].
+If you're well-versed in a technical topic and interested in sharing what you know, I'd encourage you to try it.
+
+Because the style guide formatting rules are consistent enough, we can alleviate the need to /manually/ format writing to conform to those rules by writing an ~org-mode~ [[https://orgmode.org/manual/Exporting.html][exporter]].
+Although org provides an [[https://orgmode.org/manual/HTML-Export.html][HTML exporter]], the LWN style guide is specific enough to the extent that a vanilla org-to-HTML translation isn't quite enough to come up with a ready-made way to export writing into an immediately-useful format.
+For example, whereas you might write =~:foo~=  or ~src_emacs-lisp{:foo}~ as inline code during authorship, LWN requires that inline code formatting be wrapped in the ~<tt>~ tag.
+There are other considerations as well, and this package strives to make that specific knowledge unnecessary to keep in mind at all times.
+Just write valid ~org~ documents and export them.
+
+Fortunately, through the use of [[https://orgmode.org/worg/dev/org-export-reference.html][exporters that inherit parent backends]], this is pretty easy overall with the availability of the ~'html~ exporter.
+My own process for using this package is:
+
++ Write prose under a headline in a larger ~org-mode~ document (perhaps ~**** Draft 1~)
++ Call ~org-export-dispatch~ with ~C-e~, scope down to my draft with ~C-s~, and select a /normal/ HTML export to proofread in the browser (~h~, ~o~)
++ Once satisfied, export just my scoped subtree /body/ into LWN-compatible HTML: ~C-e~, ~C-s~, ~C-b~, ~L~, ~h~
+  + Scoping to the subtree avoids including all the rest of your larger Org document, and choosing body-only excludes the rest of the HTML markup that is unnecessary for draft submission
+
 ** Development
 
 Write tests in ~tests/~ using [[https://github.com/jorgenschaefer/emacs-buttercup][buttercup]].
 Add to an existing test file, or if deserving of a standalone battery of tests, create it and then add to ~all.el~.
 
 100% coverage and passing tests are enforced.
-There are some helpers in the test files to run them interactively; and a custom buttercup matcher called src_emacs-lisp[:exports code]{:parses-into} is available to make testing src_emacs-lisp[:exports code]{org-mode} transation into HTML easier.
+There are some helpers in the test files to run them interactively; and a custom buttercup matcher called ~:parses-into~ is available to make testing ~org-mode~ transation into HTML easier.
 
 Run tests from the command line with ~just~.
 
@@ -56,3 +73,7 @@ Both ~emacs~ and ~just~ are bundled in the Nix devshell.
 With Nix installed, either drop ~use flake~ into ~.envrc~ to use it automatically or invoke standalone with:
 
 : nix develop . --command just
+
+** Footnotes
+
+[fn:1] I hope I'm not breaking any FrieNDAs by publishing the HTML formatting guidelines as an emacs package.
