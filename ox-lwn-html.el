@@ -62,7 +62,8 @@
                      (headline . org-lwn-html-headline)
                      (paragraph . org-lwn-html-paragraph)
                      (quote-block . org-lwn-html-quote-block)
-                     (section . org-lwn-html-section)))
+                     (section . org-lwn-html-section)
+                     (verbatim . org-lwn-html-code)))
 
 ;;; Transcode Functions
 

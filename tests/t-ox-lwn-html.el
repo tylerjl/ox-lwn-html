@@ -72,6 +72,9 @@
       (describe "literal"
 	(it "indents literal <pre> tags"
 	  (expect ": literal" :parses-into "<pre>    literal</pre>"))))
+    (describe "verbatim"
+      (it "formats as tt"
+        (expect "A =sample= paragraph." :parses-into "<p>A <tt>sample</tt> paragraph.</p>")))
     (describe "link"
       (describe "fallback"
 	:var ((link "https://www.example.com"))
