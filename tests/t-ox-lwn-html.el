@@ -113,7 +113,7 @@
 		     (insert-file-contents exported-file)
 		     (libxml-parse-html-region)))
 	     (formatted (with-temp-buffer
-                          (insert (format "<p>\n%s</p>" example))
+                          (insert (format "<p>%s</p>" example))
                           (libxml-parse-html-region))))
 	(expect html :to-equal formatted)))))
 

@@ -134,7 +134,9 @@ filename."
 	wrapped-q
       (if (eq (org-element-type (org-export-get-parent paragraph)) 'quote-block)
 	  contents
-	(org-html-paragraph paragraph wrapped-q info)))))
+	(->> (string-fill (org-html-paragraph paragraph wrapped-q info) 80)
+	     (replace-regexp-in-string (rx "<p>" (+ blank)) "<p>")
+	     (replace-regexp-in-string (rx (+ blank) "</p>") "</p>"))))))
 
 ;;;; Quotes
 
@@ -160,7 +162,7 @@ filename."
          ;; clamp to valid HTML heading range
          (hlevel (max 1 (min 6 hlevel)))
          (text (org-export-data (org-element-property :title headline) info)))
-    (format "\n<h%d>%s</h%d>\n%s" hlevel text hlevel (or contents ""))))
+    (format "\n<h%d>%s</h%d>\n\n%s" hlevel text hlevel (or contents ""))))
 
 ;;; Interactive functions
 
