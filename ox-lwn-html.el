@@ -138,15 +138,22 @@ filename."
 	wrapped-q
       (if (eq (org-element-type (org-export-get-parent paragraph)) 'quote-block)
 	  contents
-	(->> (string-fill (org-html-paragraph paragraph wrapped-q info) 80)
-	     (replace-regexp-in-string (rx "<p>" (+ blank)) "<p>")
-	     (replace-regexp-in-string (rx (+ blank) "</p>") "</p>"))))))
+	(-as-> (org-html-paragraph paragraph wrapped-q info) str
+	       (replace-regexp-in-string (rx "<p>" (+ space)) "<p>" str)
+	       (replace-regexp-in-string (rx (+ space) "</p>") "</p>" str)
+	       (string-fill str 80))))))
 
 ;;;; Quotes
 
 (defun org-lwn-html-quote-block (_quote-block contents _info)
   "Export QUOTE-BLOCK as a bare blockquote with class bq."
-  (format "<blockquote class=\"bq\">\n%s</blockquote>" contents))
+  (let ((content (if-let* ((parts (s-split "\n\n" contents))
+			   (_ (> (length parts) 1)))
+		     (->> (--map (concat "<p>" it "</p>") parts)
+			  (s-join "\n\n")
+			  (s-append "\n"))
+		   contents)))
+    (format "<blockquote class=\"bq\">\n%s</blockquote>" content)))
 
 ;;;; Section
 
