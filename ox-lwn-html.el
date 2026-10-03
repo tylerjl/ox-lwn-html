@@ -5,6 +5,8 @@
 ;; Author: Tyler Langlois
 ;; Keywords: org, html
 
+;; Package-Requires: ((emacs "26.3") (dash "2.11.0") (s "1.12.0"))
+
 ;; This file is not part of GNU Emacs.
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -27,8 +29,10 @@
 
 ;;; Code:
 
+(require 'dash)
 (require 'ox)
 (require 'ox-html)
+(require 's)
 
 ;;; User-Configurable Variables
 

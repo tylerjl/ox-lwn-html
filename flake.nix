@@ -24,6 +24,7 @@
           packages = with pkgs; [
             ((emacsPackagesFor emacs).emacsWithPackages (epkgs: with epkgs; [
               buttercup-junit
+              s
               undercover
             ]))
             just
