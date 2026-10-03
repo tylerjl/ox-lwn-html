@@ -100,10 +100,12 @@
 	  (expect "A \"\"direct\"\" quote." :parses-into "<p>A \"<q>direct</q>\" quote.</p>")))
       (describe "block"
 	(it "amends the css class without <p> tags"
-	  (expect "#+begin_quote\nQuote\n#+end_quote" :parses-into "<blockquote class=\"bq\">Quote</blockquote>"))))
-    (describe "comments"
-      (it "appear as HTML comments"
-	(expect "#+html: <!-- middle-ad -->" :parses-into "<!-- middle-ad -->"))))
+	  (expect "#+begin_quote\nQuote\n#+end_quote" :parses-into "<blockquote class=\"bq\">Quote</blockquote>"))
+	(it "wraps multiple paragraphs in tags"
+	  (expect "#+begin_quote\nQuote\n\nAnother\n#+end_quote" :parses-into "<blockquote class=\"bq\"><p>Quote</p><p>Another</p></blockquote>"))))
+    (describe "html blocks"
+      (it "appears on export"
+	(expect "Test.\n#+html: <!-- middle-ad -->" :parses-into "<p>Test.</p>\n<!-- middle-ad -->"))))
   (describe "export-to"
     (it "writes formatted files"
       (let* ((temp-file (make-temp-file "ox-lwn-html-test" nil ".html"))
