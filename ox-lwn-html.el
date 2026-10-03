@@ -201,7 +201,8 @@ Export is done in a buffer named \"*Org LWN HTML Export*\", which will
 be displayed when `org-export-show-temporary-export-buffer' is
 non-nil."
   (interactive)
-  (let ((org-export-with-toc nil)
+  (let ((sentence-end-double-space nil)
+	(org-export-with-toc nil)
         (org-html-htmlize-output-type nil)
 	(org-html-toplevel-hlevel org-lwn-html-hlevel))
     (org-export-to-buffer 'lwn-html "*Org LWN HTML Export*"
@@ -230,7 +231,8 @@ contents of hidden elements.
 
 Return output file's name."
   (interactive)
-  (let ((outfile (org-export-output-file-name ".html" subtreep))
+  (let ((sentence-end-double-space nil)
+	(outfile (org-export-output-file-name ".html" subtreep))
         (org-export-with-toc nil)
 	(org-html-htmlize-output-type nil)
 	(org-html-toplevel-hlevel org-lwn-html-hlevel))
