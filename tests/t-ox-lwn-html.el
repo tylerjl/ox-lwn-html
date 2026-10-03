@@ -102,7 +102,7 @@
 	(it "amends the css class without <p> tags"
 	  (expect "#+begin_quote\nQuote\n#+end_quote" :parses-into "<blockquote class=\"bq\">Quote</blockquote>"))))
     (describe "comments"
-      (it "appears as HTML comments"
+      (it "appear as HTML comments"
 	(expect "#+html: <!-- middle-ad -->" :parses-into "<!-- middle-ad -->"))))
   (describe "export-to"
     (it "writes formatted files"
