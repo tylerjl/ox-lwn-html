@@ -105,7 +105,10 @@
 	  (expect "#+begin_quote\nQuote\n\nAnother\n#+end_quote" :parses-into "<blockquote class=\"bq\"><p>Quote</p><p>Another</p></blockquote>"))))
     (describe "html blocks"
       (it "appears on export"
-	(expect "Test.\n#+html: <!-- middle-ad -->" :parses-into "<p>Test.</p>\n<!-- middle-ad -->"))))
+	  (expect "Test.\n#+html: <!-- middle-ad -->" :parses-into "<p>Test.</p>\n<!-- middle-ad -->")))
+    (describe "lists"
+	      (it "strips class"
+		  (expect "+ a" :parses-into "<ul><li>a</li></ul>"))))
   (describe "export-to"
     (it "writes formatted files"
       (let* ((temp-file (make-temp-file "ox-lwn-html-test" nil ".html"))

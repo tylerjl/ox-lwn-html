@@ -65,6 +65,7 @@
                      (link . org-lwn-html-link)
                      (headline . org-lwn-html-headline)
                      (paragraph . org-lwn-html-paragraph)
+		     (plain-list . org-lwn-html-plain-list)
                      (quote-block . org-lwn-html-quote-block)
                      (section . org-lwn-html-section)
                      (verbatim . org-lwn-html-code)))
@@ -142,6 +143,18 @@ filename."
 	       (replace-regexp-in-string (rx "<p>" (+ space)) "<p>" str)
 	       (replace-regexp-in-string (rx (+ space) "</p>") "</p>" str)
 	       (string-fill str 80))))))
+
+;;;; Lists
+
+(defun org-lwn-html-plain-list (plain-list contents info)
+  "Turn PLAIN-LIST into HTML using upstream org-export functions but tweak
+it to strip out class attributes."
+  (cl-destructuring-bind (tag _attrs &rest body) (with-temp-buffer
+						   (insert (org-html-plain-list plain-list contents info))
+						   (-> (libxml-parse-html-region (point-min) (point-max))
+						       (-last-item)
+						       (-last-item)))
+    (string-replace "<ul> <li>" "<ul>\n <li>" (shr-dom-to-xml `(,tag ,nil ,@body)))))
 
 ;;;; Quotes
 
